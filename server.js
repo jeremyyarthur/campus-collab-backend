@@ -16,8 +16,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve frontend from project root (index.html, task.html, etc.)
-app.use(express.static(path.join(__dirname, '..','examination')));
-
+// app.use(express.static(path.join(__dirname, '..','examination')));
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.path}`, {
+      body: req.body,
+      auth: req.headers.authorization
+    });
+    next();
+  });
 // ----------------------------
 // ROUTES: Declare first
 // ----------------------------
